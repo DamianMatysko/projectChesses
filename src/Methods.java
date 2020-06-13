@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class Methods {
     public String[][] board = {
             {"1", "2", "3", "4", "5", "6", "7", "8"},
@@ -9,13 +12,15 @@ public class Methods {
             return null;
         }
         item = item.toUpperCase();
-        if ((item.charAt(0) >= 49 || item.charAt(0) <= 56) && (item.charAt(1) >= 65 || item.charAt(1) <= 72)) {
-            item = String.valueOf(item.charAt(1) + item.charAt(0));//swap chars
+        if (((int) item.charAt(0) >= 49 && (int) item.charAt(0) <= 56) && ((int) item.charAt(1) >= 65 && (int) item.charAt(1) <= 72)) {
+            String string = String.valueOf(item.charAt(1));
+            string += String.valueOf(item.charAt(0));
+            item = string;//swap chars
         }
-        if (item.charAt(0) < 65 || item.charAt(0) > 72) {
+        if ((int) item.charAt(0) < 65 || (int) item.charAt(0) > 72) {
             return null;//first position must be A-H
         }
-        if (item.charAt(1) < 49 || item.charAt(1) > 56) {
+        if ((int) item.charAt(1) < 49 || (int) item.charAt(1) > 56) {
             return null;//second position must be 1-8
         }
         return item;
@@ -31,74 +36,89 @@ public class Methods {
     public boolean checkBishop(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
+        System.out.println(pos);
         if (pos == null || dest == null) {
             return false;
         }
-        if (pos.equals(dest)){
+        if (pos.equals(dest)) {
             return false;
         }
-        if (!((Math.abs(pos.charAt(0)-dest.charAt(0))<8)&&(Math.abs(pos.charAt(1)-dest.charAt(1))<8))){
+
+  //     if (!((Math.abs(pos.charAt(0) - dest.charAt(0)) < 8) && (Math.abs(pos.charAt(1) - dest.charAt(1)) < 8))) {
+        System.out.println((int)dest.charAt(0)-  65);
+        System.out.println((int)dest.charAt(1)-49);
+      if ((int)dest.charAt(0) -  65 != (int)dest.charAt(1)-49) {
             return false;//cant move on this position
         }
         return true;
     }
-    public boolean checkQueen(String pos, String dest) {
+
+    public boolean checkQueen(String pos, String dest) {//todo
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
             return false;
         }
-        if (pos.equals(dest)){
+        if (pos.equals(dest)) {
             return false;
         }//Queen can move everywhere
         return true;
     }
+
     public boolean checkKing(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
             return false;
         }
-        if (pos.equals(dest)){
+        if (pos.equals(dest)) {
             return false;//same position
         }
-        if (!((Math.abs(pos.charAt(0)-dest.charAt(0))<=1)&&(Math.abs(pos.charAt(1)-dest.charAt(1))<=1))){
+        if (!((Math.abs(pos.charAt(0) - dest.charAt(0)) <= 1) && (Math.abs(pos.charAt(1) - dest.charAt(1)) <= 1))) {
             return false;//cant move on this position
         }
         return true;
     }
-    public boolean checkKnight(String pos, String dest) {
+
+    public Set possibleMovementsKnight(String pos, String dest) {//todo
+        Set<String> movements = new HashSet<>();
+        return movements;
+    }
+
+    public boolean checkKnight(String pos, String dest) {//todo
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
             return false;
         }
-        if (pos.equals(dest)){
+        if (pos.equals(dest)) {
             return false;
         }
         return true;
     }
+
     public boolean checkRook(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
             return false;
         }
-        if (pos.equals(dest)){
+        if (pos.equals(dest)) {
             return false;
         }
-        if (!((pos.charAt(0)==dest.charAt(0))||(pos.charAt(0)==dest.charAt(1)))){
+        if (!((pos.charAt(0) == dest.charAt(0)) || (pos.charAt(0) == dest.charAt(1)))) {
             return false;//cant move on this position
         }
         return true;
     }
+
     public boolean checkPawn(String pos, String dest) {//todo
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
             return false;
         }
-        if (pos.equals(dest)){
+        if (pos.equals(dest)) {
             return false;
         }
         return true;
