@@ -36,7 +36,6 @@ public class Methods {
     public boolean checkBishop(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
-        System.out.println(pos);
         if (pos == null || dest == null) {
             return false;
         }
@@ -44,16 +43,13 @@ public class Methods {
             return false;
         }
 
-  //     if (!((Math.abs(pos.charAt(0) - dest.charAt(0)) < 8) && (Math.abs(pos.charAt(1) - dest.charAt(1)) < 8))) {
-        System.out.println((int)dest.charAt(0)-  65);
-        System.out.println((int)dest.charAt(1)-49);
-      if ((int)dest.charAt(0) -  65 != (int)dest.charAt(1)-49) {
+        if (((Math.abs((int) pos.charAt(0) - (int) dest.charAt(0))) != (Math.abs((int) pos.charAt(1) - (int) dest.charAt(1))))) {
             return false;//cant move on this position
         }
         return true;
     }
 
-    public boolean checkQueen(String pos, String dest) {//todo
+    public boolean checkQueen(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
@@ -61,7 +57,15 @@ public class Methods {
         }
         if (pos.equals(dest)) {
             return false;
-        }//Queen can move everywhere
+        }//bishop and rook movements
+
+
+        if (((Math.abs((int) pos.charAt(0) - (int) dest.charAt(0))) != (Math.abs((int) pos.charAt(1) - (int) dest.charAt(1))))) {
+
+            if (!((pos.charAt(0) == dest.charAt(0)) || (pos.charAt(1) == dest.charAt(1)))) {
+                return false;//cant move on this position
+            }
+        }
         return true;
     }
 
@@ -74,18 +78,48 @@ public class Methods {
         if (pos.equals(dest)) {
             return false;//same position
         }
-        if (!((Math.abs(pos.charAt(0) - dest.charAt(0)) <= 1) && (Math.abs(pos.charAt(1) - dest.charAt(1)) <= 1))) {
+        if (!((Math.abs((int) pos.charAt(0) - (int) dest.charAt(0)) <= 1) && (Math.abs((int) pos.charAt(1) - (int) dest.charAt(1)) <= 1))) {
             return false;//cant move on this position
         }
         return true;
     }
 
-    public Set possibleMovementsKnight(String pos, String dest) {//todo
+    public Set possibleMovementsKnight(String pos) {
         Set<String> movements = new HashSet<>();
+        pos = normalize(pos);
+        if (pos == null) {
+            return null;
+        }
+//        //manual add
+//        movements.add(Character.toString((char)((int) pos.charAt(0)+2)) + (char) ((int) pos.charAt(1) + 1));
+//        movements.add(Character.toString((char)((int) pos.charAt(0)+2)) + (char) ((int) pos.charAt(1) - 1));
+//
+//        movements.add(Character.toString((char)((int) pos.charAt(0)-2)) + (char) ((int) pos.charAt(1) + 1));
+//        movements.add(Character.toString((char)((int) pos.charAt(0)-2)) + (char) ((int) pos.charAt(1) - 1));
+//
+//        movements.add(Character.toString((char)((int) pos.charAt(0)+1)) + (char) ((int) pos.charAt(1) + 2));
+//        movements.add(Character.toString((char)((int) pos.charAt(0)+1)) + (char) ((int) pos.charAt(1) - 2));
+//
+//        movements.add(Character.toString((char)((int) pos.charAt(0)-1)) + (char) ((int) pos.charAt(1) + 2));
+//        movements.add(Character.toString((char)((int) pos.charAt(0)-1)) + (char) ((int) pos.charAt(1) - 2));
+
+//        if add
+        String dest = "";
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j < 9; j++) {
+                dest = Character.toString((char) i + 64) + Character.toString((char) j + 48);
+                if (((Math.abs((int) pos.charAt(0) - (int) dest.charAt(0)) == 2) && (Math.abs((int) pos.charAt(1) - (int) dest.charAt(1)) == 1))
+                        || ((Math.abs((int) pos.charAt(0) - (int) dest.charAt(0)) == 1) && (Math.abs((int) pos.charAt(1) - (int) dest.charAt(1)) == 2))) {
+                    if (normalize(dest) != null) {// out of board
+                        movements.add(dest);
+                    }
+                }
+            }
+        }
         return movements;
     }
 
-    public boolean checkKnight(String pos, String dest) {//todo
+    public boolean checkKnight(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
@@ -93,6 +127,11 @@ public class Methods {
         }
         if (pos.equals(dest)) {
             return false;
+        }
+        if (!((Math.abs((int) pos.charAt(0) - (int) dest.charAt(0)) == 2) && (Math.abs((int) pos.charAt(1) - (int) dest.charAt(1)) == 1))) {
+            if (!((Math.abs((int) pos.charAt(0) - (int) dest.charAt(0)) == 1) && (Math.abs((int) pos.charAt(1) - (int) dest.charAt(1)) == 2))) {
+                return false;//cant move on this position
+            }
         }
         return true;
     }
@@ -106,13 +145,13 @@ public class Methods {
         if (pos.equals(dest)) {
             return false;
         }
-        if (!((pos.charAt(0) == dest.charAt(0)) || (pos.charAt(0) == dest.charAt(1)))) {
+        if (!((pos.charAt(0) == dest.charAt(0)) || (pos.charAt(1) == dest.charAt(1)))) {
             return false;//cant move on this position
         }
         return true;
     }
 
-    public boolean checkPawn(String pos, String dest) {//todo
+    public boolean checkPawn(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
         if (pos == null || dest == null) {
