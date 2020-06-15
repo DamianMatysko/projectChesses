@@ -139,6 +139,24 @@ public class MethodsTest {
     }
 
     @Test
+    public void possibleMovementsKnightOn2Turns() {
+        Set<String> movementsA1 = new HashSet<>();
+        movementsA1.add("A1");
+        movementsA1.add("C1");
+        movementsA1.add("E1");
+        movementsA1.add("D2");
+        movementsA1.add("A3");
+        movementsA1.add("E3");
+        movementsA1.add("B4");
+        movementsA1.add("D4");
+        movementsA1.add("A5");
+        movementsA1.add("C5");
+
+        assertEquals(movementsA1, methods.possibleMovementsKnightOn2Turns("A1"));
+        assertNotEquals(movementsA1, methods.possibleMovementsKnightOn2Turns("D5"));
+    }
+
+    @Test
     public void checkKnight() {
         assertTrue(methods.checkKnight("C3","d1"));
         assertTrue(methods.checkKnight("C3","2e"));

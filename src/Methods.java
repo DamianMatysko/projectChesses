@@ -119,6 +119,21 @@ public class Methods {
         return movements;
     }
 
+    public Set possibleMovementsKnightOn2Turns(String pos) {
+        pos = normalize(pos);
+        if (pos == null) {
+            return null;
+        }
+        Set<String> movements = possibleMovementsKnight(pos);
+        Set<String> margeMovements = new HashSet<>();
+
+        for (String string: movements){
+            margeMovements.addAll(possibleMovementsKnight(string));
+        }
+        System.out.println(margeMovements);
+        return margeMovements;
+    }
+
     public boolean checkKnight(String pos, String dest) {
         pos = normalize(pos);
         dest = normalize(dest);
